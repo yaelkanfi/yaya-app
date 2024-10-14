@@ -1,0 +1,28 @@
+header {
+    background-color: #f8f8f8; /* Light background color */
+    padding: 20px 40px; /* Spacing inside the header */
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  nav {
+    display: flex; /* Use flexbox for navigation links */
+    gap: 20px; /* Space between links */
+  }
+  
+  nav a {
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Dark text color */
+    font-weight: bold; /* Make text bold */
+    padding: 10px 15px; /* Spacing around text */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  }
+  
+  nav a:hover {
+    background-color: #333; /* Dark background on hover */
+    color: #fff; /* White text on hover */
+  }
+  

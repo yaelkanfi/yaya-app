@@ -1,11 +1,11 @@
 import React from 'react';
-import './Home.css';
 
 function Home() {
     return (
         <div className="home-container">
-            <h1>Welcome to the Home Decor Store</h1>
-            <p>Explore our wide range of home decor products to beautify your home!</p>
+            <h2>Welcome to Home Decor</h2>
+            <p>Explore our wide range of home decor products!</p>
+            {/* Add more content or components related to the home page here */}
         </div>
     );
 }
