@@ -1,5 +1,6 @@
 header {
-    background-color: #f8f8f8; /* Light background color */
+    background-color: #333; /* Light background color */
+    color: #fff;
     padding: 20px 40px; /* Spacing inside the header */
     display: flex; /* Use flexbox for layout */
     justify-content: space-between; /* Space between items */
@@ -14,7 +15,7 @@ header {
   
   nav a {
     text-decoration: none; /* Remove underline */
-    color: #333; /* Dark text color */
+    color: #fff; /* Dark text color */
     font-weight: bold; /* Make text bold */
     padding: 10px 15px; /* Spacing around text */
     border-radius: 5px; /* Rounded corners */
@@ -22,7 +23,7 @@ header {
   }
   
   nav a:hover {
-    background-color: #333; /* Dark background on hover */
-    color: #fff; /* White text on hover */
+    background-color: #fff; /* Dark background on hover */
+    color: #333; /* White text on hover */
   }
   
