@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const connectToDatabase = require('./db'); 
 const productRoutes = require('./routes/productRoutes');
 
@@ -7,6 +9,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB
 connectToDatabase();
