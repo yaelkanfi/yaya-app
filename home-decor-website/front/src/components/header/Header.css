@@ -43,14 +43,27 @@ nav a:hover {
   /* White text on hover */
 }
 
+.cart-icon-container {
+  position: relative; /* Positioning for the badge */
+  display: inline-block; /* Aligns the icon with the number */
+}
+
 .cart-icon {
-  color: white;
-  font-size: 24px;
-  transition: color 0.3s ease;
-  cursor: pointer;
-  /* Change cursor to pointer */
+  font-size: 24px; /* Adjust size as necessary */
+  color: #fff; /* Change color to fit your design */
 }
 
 .cart-icon:hover {
   color: lightgray;
+}
+
+.cart-count {
+  position: absolute; /* Positioning relative to the icon */
+  top: -10px; /* Adjust based on the icon size */
+  right: -10px; /* Adjust based on the icon size */
+  background-color: red; /* Background color of the badge */
+  color: white; /* Text color */
+  border-radius: 50%; /* Circular badge */
+  padding: 2px 6px; /* Space inside the badge */
+  font-size: 12px; /* Adjust font size */
 }
