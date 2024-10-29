@@ -1,36 +1,56 @@
 header {
-    background-color: #333; /* Light background color */
-    color: #fff;
-    padding: 20px 40px; /* Spacing inside the header */
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between items */
-    align-items: center; /* Center items vertically */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  }
-  
-  nav {
-    display: flex; /* Use flexbox for navigation links */
-    gap: 20px; /* Space between links */
-  }
-  
-  nav a {
-    text-decoration: none; /* Remove underline */
-    color: #fff; /* Dark text color */
-    font-weight: bold; /* Make text bold */
-    padding: 10px 15px; /* Spacing around text */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-  }
-  
-  nav a:hover {
-    background-color: #fff; /* Dark background on hover */
-    color: #333; /* White text on hover */
-  }
-
-  .cart-icon {
-    font-size: 1.5em;
-    color: #333;
-    margin-right: 20px;
-    text-decoration: none;
+  background-color: #333;
+  /* Light background color */
+  color: #fff;
+  padding: 20px 40px;
+  /* Spacing inside the header */
+  display: flex;
+  /* Use flexbox for layout */
+  justify-content: space-between;
+  /* Space between items */
+  align-items: center;
+  /* Center items vertically */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
 }
-  
+
+nav {
+  display: flex;
+  /* Use flexbox for navigation links */
+  gap: 20px;
+  /* Space between links */
+}
+
+nav a {
+  text-decoration: none;
+  /* Remove underline */
+  color: #fff;
+  /* Dark text color */
+  font-weight: bold;
+  /* Make text bold */
+  padding: 10px 15px;
+  /* Spacing around text */
+  border-radius: 5px;
+  /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+  /* Smooth transition */
+}
+
+nav a:hover {
+  background-color: #fff;
+  /* Dark background on hover */
+  color: #333;
+  /* White text on hover */
+}
+
+.cart-icon {
+  color: white;
+  font-size: 24px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  /* Change cursor to pointer */
+}
+
+.cart-icon:hover {
+  color: lightgray;
+}
