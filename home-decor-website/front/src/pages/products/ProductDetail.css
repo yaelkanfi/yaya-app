@@ -53,3 +53,9 @@
 .add-to-cart-button:hover {
     background-color: #0056b3;
 }
+
+.confirmation-message {
+    color: green;
+    margin-top: 10px;
+    font-weight: bold;
+}
