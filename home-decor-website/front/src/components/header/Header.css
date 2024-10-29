@@ -26,4 +26,11 @@ header {
     background-color: #fff; /* Dark background on hover */
     color: #333; /* White text on hover */
   }
+
+  .cart-icon {
+    font-size: 1.5em;
+    color: #333;
+    margin-right: 20px;
+    text-decoration: none;
+}
   
