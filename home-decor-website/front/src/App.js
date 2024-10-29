@@ -4,6 +4,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer'; 
 import Home from './pages/home/Home';
 import Products from './pages/products/Products';
+import ProductDetail from './pages/products/ProductDetail';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>} />
                         <Route path="/products" element={<Products/>} />
+                        <Route path="/products/:id" element={<ProductDetail />} />
                         {/* Add more routes for other pages here */}
                     </Routes>
                 </main>

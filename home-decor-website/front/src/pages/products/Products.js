@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Products.css';
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -15,12 +17,12 @@ function Products() {
             <h1>Products</h1>
             <div className="product-list">
                 {products.map(product => (
-                    <div key={product._id} className="product-card">
+                    <Link to={`/products/${product._id}`} key={product._id} className="product-card">
                         <img src={product.imageUrl} alt={product.name} />
                         <h2>{product.name}</h2>
                         <p>{product.description}</p>
                         <p>${product.price}</p>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
