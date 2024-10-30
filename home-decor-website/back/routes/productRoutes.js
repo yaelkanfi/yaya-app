@@ -34,6 +34,24 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Route to search products
+router.get('/search', async (req, res) => {
+    const { query } = req.query;
+    try {
+        // Case-insensitive search for products where name or description contains the query term
+        const products = await Product.find({
+            $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { subcategory: { $regex: query, $options: 'i' } }
+            ]
+        });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Route to get all products
 router.get('/', async (req, res) => {
     try {

@@ -1,12 +1,22 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaSearch, FaChair, FaBed, FaLightbulb } from 'react-icons/fa';
 import { CartContext } from '../../CartContext';
 import './Header.css';
 
 const Header = () => {
+
   const { getCartCount } = useContext(CartContext);
   const cartCount = getCartCount();
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   const categories = [
     { name: 'Furniture', icon: <FaChair />, subcategories: ['Sofas', 'Chairs', 'Tables'] },
@@ -20,10 +30,11 @@ const Header = () => {
         <Link to="/" className="header-title no-link-style">KBN</Link>
 
         {/* Search Bar */}
-        <div className="search-bar">
-          <input type="text" placeholder="I'M LOOKING FOR..." />
+        <form onSubmit={handleSearch} className="search-bar">
+          <input type="text" placeholder="I'M LOOKING FOR..." value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} />
           <button><FaSearch /></button>
-        </div>
+        </form>
 
         {/* Cart Icon */}
         <Link to="/cart" className="cart-icon-container">
