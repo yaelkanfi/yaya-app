@@ -9,8 +9,8 @@ function Footer() {
 }
 
 const footerStyle = {
-    background: '#333',
-    color: '#fff',
+    background: '#fff',
+    color: '#333',
     textAlign: 'center',
     padding: '10px',
     position: 'fixed',

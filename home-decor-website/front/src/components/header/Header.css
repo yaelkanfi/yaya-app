@@ -37,7 +37,8 @@
   align-items: center;
   width: 60%;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 20px;
+  overflow: hidden;
   background-color: #fff;
   padding: 5px;
 }
@@ -47,6 +48,7 @@
   border: none;
   padding: 5px;
   outline: none;
+  border-radius: 20px 0 0 20px;
   font-size: 16px;
 }
 
@@ -55,6 +57,11 @@
   border: none;
   cursor: pointer;
   color: #333;
+  border-radius: 0 20px 20px 0;
+}
+
+.search-bar button:hover {
+  color: #777;
 }
 
 .category-nav {
