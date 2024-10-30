@@ -8,11 +8,13 @@ router.get('/search', async (req, res) => {
 
     try {
         // Case-insensitive search for products where name or description contains the query term
+        const regex = new RegExp(`\\b${query}\\b`, 'i');
+
         const products = await Product.find({
             $or: [
-                { name: { $regex: query, $options: 'i' } },
-                { description: { $regex: query, $options: 'i' } },
-                { subcategory: { $regex: query, $options: 'i' } }
+                { name: regex },
+                { description: regex },
+                { subcategory: regex }
             ]
         });
         res.json(products);
