@@ -14,6 +14,7 @@ const Header = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      console.log("Search query:", searchQuery); // Log the search query here
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
     }
   };
