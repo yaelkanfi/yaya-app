@@ -20,7 +20,7 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/products" element={<Products />} />
                             <Route path="/products/:id" element={<ProductDetail />} />
-                            <Route path="/products/subcategory/:subcategory" element={<SubcategoryPage />} />
+                            <Route path="/products/:category/:subcategory" element={<SubcategoryPage />} />
                             <Route path="/cart" element={<Cart />} />
                             {/* Add more routes for other pages here */}
                         </Routes>

@@ -40,7 +40,7 @@ const Header = () => {
             <span className="category-name">{category.name}</span>
             <div className="subcategory-dropdown">
               {category.subcategories.map((sub, idx) => (
-                <Link key={idx} to={`/products/subcategory/${sub.toLowerCase()}`}>{sub}</Link>
+                <Link key={idx} to={`/products/${category.name}/${sub}`}>{sub}</Link>
               ))}
             </div>
           </div>
