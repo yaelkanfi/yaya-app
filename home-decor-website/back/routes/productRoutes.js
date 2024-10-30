@@ -5,7 +5,6 @@ const router = express.Router();
 // Route to search products
 router.get('/search', async (req, res) => {
     const { query } = req.query;
-    console.log("Backend received search query:", query); // Log the query received by the backend
 
     try {
         // Case-insensitive search for products where name or description contains the query term
@@ -16,7 +15,6 @@ router.get('/search', async (req, res) => {
                 { subcategory: { $regex: query, $options: 'i' } }
             ]
         });
-        console.log("Products found:", products); // Log the products found
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });

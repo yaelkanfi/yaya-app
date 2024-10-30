@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../CartContext';
+import { FaArrowLeft } from 'react-icons/fa';
 import './ProductDetail.css';
 
 function ProductDetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const { addToCart } = useContext(CartContext);
     const [confirmationMessage, setConfirmationMessage] = useState('');
@@ -30,6 +32,11 @@ function ProductDetail() {
 
     return (
         <div className="product-detail">
+            {/* Back Button */}
+            <div className="back-icon" onClick={() => navigate(-1)}>
+                <FaArrowLeft size={24} /> {/* Icon */}
+            </div>
+
             <img className="product-image" src={product.imageUrl} alt={product.name} />
             <div className="product-info">
                 <h2 className="product-name">{product.name}</h2>

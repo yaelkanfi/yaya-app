@@ -6,6 +6,7 @@
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
 }
 
 .product-image {
@@ -58,4 +59,11 @@
     color: green;
     margin-top: 10px;
     font-weight: bold;
+}
+
+.back-icon {
+    position: absolute; /* Position it at the top left */
+    top: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    cursor: pointer; /* Change cursor to pointer */
 }

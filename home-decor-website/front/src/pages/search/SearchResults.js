@@ -6,7 +6,6 @@ const SearchResults = () => {
   const [results, setResults] = useState([]);
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('query');
-  console.log("Received search query from URL:", query); // Log the query parameter
 
   useEffect(() => {
     if (query) {
@@ -16,7 +15,6 @@ const SearchResults = () => {
           return response.json();
         })
         .then(data => {
-          console.log("Search results from API:", data); // Log the search results
           setResults(data);
         })
         .catch(error => console.error('Error fetching search results:', error));
