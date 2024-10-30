@@ -19,6 +19,7 @@ const Header = () => {
       <div className="header-top">
         <Link to="/" className="header-title no-link-style">KBN</Link>
 
+        {/* Search Bar */}
         <div className="search-bar">
           <input type="text" placeholder="I'M LOOKING FOR..." />
           <button><FaSearch /></button>
@@ -31,7 +32,7 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Categories Positioned Below Search Bar */}
+      {/* Categories */}
       <nav className="category-nav">
         {categories.map((category, index) => (
           <div key={index} className="category-item">
@@ -39,7 +40,7 @@ const Header = () => {
             <span className="category-name">{category.name}</span>
             <div className="subcategory-dropdown">
               {category.subcategories.map((sub, idx) => (
-                <Link key={idx} to={`/products/${category.name.toLowerCase()}/${sub.toLowerCase()}`}>{sub}</Link>
+                <Link key={idx} to={`/products/subcategory/${sub.toLowerCase()}`}>{sub}</Link>
               ))}
             </div>
           </div>

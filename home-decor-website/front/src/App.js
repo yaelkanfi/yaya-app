@@ -5,6 +5,7 @@ import Footer from './components/footer/Footer';
 import Home from './pages/home/Home';
 import Products from './pages/products/Products';
 import ProductDetail from './pages/products/ProductDetail';
+import SubcategoryPage from './pages/products/SubcategoryPage';
 import { CartProvider } from './CartContext';
 import Cart from './pages/cart/Cart'
 
@@ -19,6 +20,7 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/products" element={<Products />} />
                             <Route path="/products/:id" element={<ProductDetail />} />
+                            <Route path="/products/subcategory/:subcategory" element={<SubcategoryPage />} />
                             <Route path="/cart" element={<Cart />} />
                             {/* Add more routes for other pages here */}
                         </Routes>

@@ -13,6 +13,16 @@ router.post('/add', async (req, res) => {
     }
 });
 
+// Route to get all products of a subcategory
+router.get('/subcategory/:subcategory', async (req, res) => {
+    try {
+        const products = await Product.find({ subcategory: req.params.subcategory });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Route to get a single product by ID
 router.get('/:id', async (req, res) => {
     try {
