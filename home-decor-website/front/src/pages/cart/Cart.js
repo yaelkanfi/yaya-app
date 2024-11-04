@@ -13,6 +13,8 @@ function Cart() {
         updateQuantity(productId, currentQuantity - 1);
     };
 
+    const total = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
     return (
         <div className="cart">
             <h2>Your Cart</h2>
@@ -38,7 +40,7 @@ function Cart() {
                     </div>
                 ))
             )}
-            <h2>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}</h2>
+            <h2>Total: ${total.toFixed(2)}</h2>
         </div>
     );
 }
