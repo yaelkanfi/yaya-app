@@ -23,7 +23,7 @@ function Cart() {
             ) : (
                 cart.map(product => (
                     <div key={product._id} className="cart-item">
-                        <img src={product.imageUrl} alt={product.name} />
+                        <img src={`data:image/png;base64, ${product.imageBase64}`} alt={product.name} />
                         <div>
                             <h3>{product.name}</h3>
                             <p>Price: ${product.price}</p>
@@ -34,12 +34,12 @@ function Cart() {
                             </div>
                             <div>
                                 <button onClick={() => removeFromCart(product._id)}>Remove</button>
-                                <button onClick={() => clearCart(product._id)}>Clear Cart</button>
                             </div>
                         </div>
                     </div>
                 ))
             )}
+            <div><button onClick={() => clearCart()}>Clear Cart</button></div>
             <h2>Total: ${total.toFixed(2)}</h2>
         </div>
     );

@@ -1,6 +1,22 @@
 const express = require('express');
 const Product = require('../models/Product');
 const router = express.Router();
+const fs = require('fs');
+
+function encodeImageToBase64(filePath) {
+    const image = fs.readFileSync(filePath, 'base64'); // Read image as a Buffer and encode to base64
+    return image;
+}
+
+// Route to delete all products
+router.delete('/', async (req, res) => {
+    try {
+        await Product.deleteMany(); // Deletes all products
+        res.status(200).json({ message: 'All products deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 // Route to search products
 router.get('/search', async (req, res) => {
@@ -26,7 +42,21 @@ router.get('/search', async (req, res) => {
 // Route to create a product
 router.post('/add', async (req, res) => {
     try {
-        const newProduct = new Product(req.body);
+        const { name, description, price, imageBase64, category, subcategory } = req.body;
+
+        // Convert the image to a Base64 string
+        const base64 = imageBase64 ? encodeImageToBase64(imageBase64) : '';
+
+        // Create new product with Base64 encoded image
+        const newProduct = new Product({
+            name,
+            description,
+            price,
+            base64,
+            category,
+            subcategory
+        });
+
         const savedProduct = await newProduct.save();
         res.status(201).json(savedProduct);
     } catch (error) {

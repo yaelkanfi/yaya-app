@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaSearch, FaChair, FaBed, FaLightbulb } from 'react-icons/fa';
+import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { CartContext } from '../../CartContext';
 import './Header.css';
 
@@ -20,9 +20,11 @@ const Header = () => {
   };
 
   const categories = [
-    { name: 'Furniture', icon: <FaChair />, subcategories: ['Sofas', 'Chairs', 'Tables'] },
-    { name: 'Bedding', icon: <FaBed />, subcategories: ['Mattresses', 'Pillows', 'Blankets'] },
-    { name: 'Lighting', icon: <FaLightbulb />, subcategories: ['Ceiling', 'Table Lamps', 'Outdoor'] },
+    { name: 'Furniture', subcategories: ['Sofas', 'Chairs', 'Tables'] },
+    { name: 'Bedding', subcategories: ['Mattresses', 'Pillows', 'Blankets'] },
+    { name: 'Lighting', subcategories: ['Ceiling', 'Table Lamps', 'Outdoor'] },
+    { name: 'Bathroom', subcategories: ['Towles', 'Hooks', 'Dispansers'] },
+    { name: 'Glasses', subcategories: ['Wine', 'Coffee', 'Servings'] },
   ];
 
   return (
@@ -48,7 +50,6 @@ const Header = () => {
       <nav className="category-nav">
         {categories.map((category, index) => (
           <div key={index} className="category-item">
-            <span className="category-icon">{category.icon}</span>
             <span className="category-name">{category.name}</span>
             <div className="subcategory-dropdown">
               {category.subcategories.map((sub, idx) => (
@@ -58,6 +59,7 @@ const Header = () => {
           </div>
         ))}
       </nav>
+
     </header>
   );
 };

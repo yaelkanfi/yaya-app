@@ -1,10 +1,17 @@
 import React from 'react';
+import './Home.css';
+import bannerImage from '../../assets/images/banner.jpeg';
 
 function Home() {
     return (
         <div className="home-container">
-            <h2>Yair send me a figma file!!!!</h2>
-            <p>Explore our wide range of home decor products!</p>
+            {/* Horizontal banner image */}
+            <img 
+                src={bannerImage} 
+                alt="Home Banner" 
+                className="home-banner"
+            />
+            
             {/* Add more content or components related to the home page here */}
         </div>
     );
