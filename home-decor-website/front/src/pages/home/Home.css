@@ -1,12 +1,132 @@
+/* General container for home */
 .home-container {
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
 }
 
+/* Banner styling */
 .home-banner {
-    width: 100%; 
-    height: auto; 
-    display: block; 
+    width: 100vw;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+/* Controls container */
+.controls {
+    display: flex;
+    justify-content: space-between; /* Position Sort on the left and Filter on the right */
+    align-items: center;
+    margin: 10px 20px;
+}
+
+/* Sort container */
+.sort-container, .filter-container {
+    position: relative;
+    margin: 10px 20px;
+    z-index: 5; /* Ensure it is above other elements */
+}
+
+/* Sort button */
+.sort-toggle, .filter-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: transparent;
+    border: 0 solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 5; /* Ensure visibility */
+}
+
+.sort-toggle .triangle,
+.filter-toggle .triangle {
+    margin-left: 8px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000; /* Default pointing up */
+    transition: transform 0.3s ease;
+}
+
+.sort-toggle .triangle.down,
+.filter-toggle .triangle.down {
+    border-top: none;
+    border-bottom: 5px solid #000; /* Triangle pointing down */
+}
+
+/* Sort dropdown */
+.sort-dropdown {
     position: absolute;
+    top: 110%;
+    left: 0;
+    width: max-content;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 10; /* Ensure above banner */
+}
+
+.sort-dropdown span {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.sort-dropdown span:hover {
+    background-color: #ddd;
+    color: #000;
+}
+
+/* Filter bar */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: transparent;
+    border: 0 solid #ccc;
+    border-radius: 8px;
+    position: absolute;
+    top: 100%; /* Position it directly under the button */
+    right: 0; /* Align to the left of the button */
+    z-index: 10;
+    white-space: nowrap; /* Prevent wrapping of filter options */
+    transition: opacity 0.3s ease;
+}
+
+/* Filter option styles */
+.filter-option {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: transparent;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-option:hover {
+    background-color: #ddd;
+    color: #000;
+}
+
+.filter-option.selected {
+    background-color: #333;
+    color: #fff;
+}
+
+.filter-toggle .filter-icon {
+    margin-right: 6px;
+    font-size: 16px; 
+    color: #454545; 
 }
