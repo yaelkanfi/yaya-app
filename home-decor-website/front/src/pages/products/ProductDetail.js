@@ -37,7 +37,7 @@ function ProductDetail() {
                 <FaArrowLeft size={24} /> {/* Icon */}
             </div>
 
-            <img className="product-image" src={`data:image/png;base64, ${product.imageBase64}`} alt={product.name} />
+            <img className="product-image" src={`http://localhost:5000${product.imageBase64}`} alt={product.name} />
             <div className="product-info">
                 <h2 className="product-name">{product.name}</h2>
                 <p className="product-description">{product.description}</p>
