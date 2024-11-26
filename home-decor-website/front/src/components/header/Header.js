@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   const categories = [
-    { name: 'Furniture', subcategories: ['Sofas', 'Chairs', 'Tables'] },
+    { name: 'Furniture', subcategories: ['Sofas', 'Chairs', 'Tables', 'Shelves'] },
     { name: 'Bedding', subcategories: ['Mattresses', 'Pillows', 'Blankets'] },
     { name: 'Lighting', subcategories: ['Ceiling', 'Table Lamps', 'Outdoor'] },
     { name: 'Bathroom', subcategories: ['Towles', 'Hooks', 'Dispansers'] },

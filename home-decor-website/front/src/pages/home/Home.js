@@ -71,16 +71,6 @@ function Home() {
                     )}
                 </div>
             </div>
-
-            {/* Display selected filters */}
-            <div className="selected-filters">
-                <h4>Selected Filters:</h4>
-                {selectedFilters.length > 0 ? (
-                    selectedFilters.map((filter, index) => <span key={index}>{filter}</span>)
-                ) : (
-                    <span>None</span>
-                )}
-            </div>
         </div>
     );
 }
