@@ -13,7 +13,18 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 20px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.header-top::after {
+  content: '';
+  position: absolute;
+  bottom: -12px; 
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #333; 
 }
 
 .header-title {
@@ -25,7 +36,6 @@
 .no-link-style {
   text-decoration: none;
   color: inherit;
-  font-weight: bold;
 }
 
 .no-link-style:hover {
@@ -75,14 +85,14 @@
   z-index: 10;
 }
 
-.category-nav::before {
+/* .category-nav::before {
   content: '';
   position: absolute;
-  top: -4px; /* Positioning the line just above the category navigation */
+  top: -4px; 
   width: 100%;
-  height: 0.5px; /* Thickness of the line */
-  background-color: #333; /* Color of the line */
-}
+  height: 0.5px; 
+  background-color: #333; 
+} */
 
 .category-item {
   position: relative;
