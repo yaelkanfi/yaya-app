@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../CartContext';
-import './Cart.css';
+import styles from  './Cart.module.css';
 
 function Cart() {
     const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
@@ -16,18 +16,18 @@ function Cart() {
     const total = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
-        <div className="cart">
+        <div className={styles.cart}>
             <h2>Your Cart</h2>
             {cart.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
                 cart.map(product => (
-                    <div key={product._id} className="cart-item">
-                        <img src={`data:image/png;base64, ${product.imageBase64}`} alt={product.name} />
+                    <div key={product._id} className={styles['cart-item']}>
+                        <img src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
                         <div>
                             <h3>{product.name}</h3>
                             <p>Price: ${product.price}</p>
-                            <div className="quantity-control">
+                            <div className={styles['quantity-control']}>
                                 <button onClick={() => handleDecrease(product._id, product.quantity)}>-</button>
                                 <span>{product.quantity}</span>
                                 <button onClick={() => handleIncrease(product._id, product.quantity)}>+</button>

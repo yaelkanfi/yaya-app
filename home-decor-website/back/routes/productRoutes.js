@@ -1,17 +1,11 @@
 const express = require('express');
-const Product = require('../models/Product');
 const router = express.Router();
-const fs = require('fs');
-
-function encodeImageToBase64(filePath) {
-    const image = fs.readFileSync(filePath, 'base64'); // Read image as a Buffer and encode to base64
-    return image;
-}
+const productService = require('../services/productService');
 
 // Route to delete all products
 router.delete('/', async (req, res) => {
     try {
-        await Product.deleteMany();
+        await productService.deleteAllProducts();
         res.status(200).json({ message: 'All products deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,16 +17,7 @@ router.get('/search', async (req, res) => {
     const { query } = req.query;
 
     try {
-        // Case-insensitive search for products where name or description contains the query term
-        const regex = new RegExp(`\\b${query}\\b`, 'i');
-
-        const products = await Product.find({
-            $or: [
-                { name: regex },
-                { description: regex },
-                { subcategory: regex }
-            ]
-        });
+        const products = await productService.searchProducts(query);
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -42,19 +27,7 @@ router.get('/search', async (req, res) => {
 // Route to create a product
 router.post('/add', async (req, res) => {
     try {
-        const { name, description, price, imageBase64, category, subcategory } = req.body;
-
-        // Create new product with Base64 encoded image
-        const newProduct = new Product({
-            name,
-            description,
-            price,
-            imageBase64,
-            category,
-            subcategory
-        });
-
-        const savedProduct = await newProduct.save();
+        const savedProduct = await productService.addProduct(req.body);
         res.status(201).json(savedProduct);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -64,7 +37,7 @@ router.post('/add', async (req, res) => {
 // Route to get all products of a subcategory
 router.get('/:category/:subcategory', async (req, res) => {
     try {
-        const products = await Product.find({ subcategory: req.params.subcategory });
+        const products = await productService.getProductsBySubcategory(req.params.subcategory);
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -74,7 +47,7 @@ router.get('/:category/:subcategory', async (req, res) => {
 // Route to get a single product by ID
 router.get('/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await productService.getProductById(req.params.id);
         if (!product) return res.status(404).json({ message: 'Product not found' });
         res.json(product);
     } catch (error) {
@@ -85,7 +58,7 @@ router.get('/:id', async (req, res) => {
 // Route to get all products
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await productService.getAllProducts();
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../products/Products.css';
+import styles from '../Products/Products.module.css';
 
 const SearchResults = () => {
   const [results, setResults] = useState([]);
@@ -22,12 +22,12 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <div className="search-results">
+    <div className={styles['search-results']}>
       <h2>Search Results for "{query}"</h2>
-      <div className="product-list">
+      <div className={styles['product-list']}>
         {results.length > 0 ? (
           results.map((product) => (
-            <Link to={`/products/${product._id}`} key={product._id} className="product-card">
+            <Link to={`/products/${product._id}`} key={product._id} className={styles['product-card']}>
               <img src={product.imageUrl} alt={product.name} />
               <h3>{product.name}</h3>
               <p>{product.description}</p>

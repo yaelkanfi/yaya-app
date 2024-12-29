@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaFilter } from 'react-icons/fa';
-import './Products.css';
-import './SubcategoryPage.css';
+import productsStyles from './Products.module.css';
+import subcategoryStyles from './SubcategoryPage.module.css';
 
 /* furniture */
 import sofasBanner from '../../assets/images/sofasBanner.jpg';
@@ -52,28 +52,34 @@ function SubcategoryPage() {
     useEffect(() => {
         fetch(`http://localhost:5000/api/products/${category}/${subcategory}`)
             .then(response => response.json())
-            .then(data => setProducts(data))
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setProducts(data); // Ensure data is an array
+                } else {
+                    setProducts([]); // Default to an empty array if data is invalid
+                }
+            })
             .catch(error => console.error('Error fetching products:', error));
-    }, [subcategory]);
+    }, [category, subcategory]);
 
     // Get the banner image based on the subcategory
     const bannerImage = bannerImages[subcategory];
 
     return (
 
-        <div className="home-container">
+        <div className={subcategoryStyles['home-container']}>
             {/* Horizontal banner image */}
-            <img src={bannerImage} alt="Home Banner" className="home-banner" />
+            <img src={bannerImage} alt="Home Banner" className={subcategoryStyles['home-banner']}/>
 
-            <div className="controls">
+            <div className={subcategoryStyles.controls}>
                 {/* Sort Dropdown */}
-                <div className="sort-container">
-                    <button className="sort-toggle" onClick={toggleSort}>
+                <div className={subcategoryStyles['sort-container']}>
+                    <button className={subcategoryStyles['sort-toggle']} onClick={toggleSort}>
                         Sort
-                        <span className={`triangle ${sortOpen ? 'down' : ''}`}></span>
+                        <span className={`${subcategoryStyles.triangle} ${sortOpen ? 'down' : ''}`}></span>
                     </button>
                     {sortOpen && (
-                        <div className="sort-dropdown">
+                        <div className={subcategoryStyles['sort-dropdown']}>
                             <span>Price: Low to High</span>
                             <span>Price: High to Low</span>
                             <span>Newest Arrivals</span>
@@ -105,10 +111,10 @@ function SubcategoryPage() {
                 </div>
             </div>
             <div>
-                <div className="product-list">
+                <div className={productsStyles['product-list']}>
                     {products.map(product => (
-                        <Link to={`/products/${product._id}`} key={product._id} className="product-card">
-                            <img src={`http://localhost:5000${product.imageBase64}`}
+                        <Link to={`/products/${product._id}`} key={product._id} className={productsStyles['product-card']}>
+                            <img src={`http://localhost:5000${product.imagePath}`}
                                 alt={product.name}
                                 style={{ maxWidth: '100%', maxHeight: '200px' }} // Ensure image fits 
                             />

@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Home from './pages/home/Home';
-import Products from './pages/products/Products';
-import ProductDetail from './pages/products/ProductDetail';
-import SubcategoryPage from './pages/products/SubcategoryPage';
-import SearchResults from './pages/search/SearchResults';
+import Home from './pages/Home/Home';
+import Products from './pages/Products/Products';
+import ProductDetail from './pages/Products/ProductDetail';
+import SubcategoryPage from './pages/Products/SubcategoryPage';
+import SearchResults from './pages/Search/SearchResults';
 import { CartProvider } from './CartContext';
-import Cart from './pages/cart/Cart'
+import Cart from './pages/Cart/Cart'
 
 function App() {
     return (

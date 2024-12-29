@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import { CartContext } from '../../CartContext';
-import './Header.css';
+import styles from './Header.module.css';
 
 const Header = () => {
 
@@ -28,30 +28,30 @@ const Header = () => {
   ];
 
   return (
-    <header className="header">
-      <div className="header-top">
-        <Link to="/" className="header-title no-link-style">KBN</Link>
+    <header className={styles.header}>
+      <div className={styles['header-top']}>
+        <Link to="/" className={`${styles['header-title']} ${styles['no-link-style']}`}>KBN</Link>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="search-bar">
+        <form onSubmit={handleSearch} className={styles['search-bar']}>
           <input type="text" placeholder="I'M LOOKING FOR..." value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)} />
           <button><FaSearch /></button>
         </form>
 
         {/* Cart Icon */}
-        <Link to="/cart" className="cart-icon-container">
-          <FaShoppingCart className="cart-icon" size={24} />
-          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+        <Link to="/cart" className={styles['cart-icon-container']}>
+          <FaShoppingCart className={styles['cart-icon']} size={24} />
+          {cartCount > 0 && <span className={styles['cart-count']}>{cartCount}</span>}
         </Link>
       </div>
 
       {/* Categories */}
-      <nav className="category-nav">
+      <nav className={styles['category-nav']}>
         {categories.map((category, index) => (
-          <div key={index} className="category-item">
-            <span className="category-name">{category.name}</span>
-            <div className="subcategory-dropdown">
+          <div key={index} className={styles['category-item']}>
+            <span className={styles['category-name']}>{category.name}</span>
+            <div className={styles['subcategory-dropdown']}>
               {category.subcategories.map((sub, idx) => (
                 <Link key={idx} to={`/products/${category.name}/${sub}`}>{sub}</Link>
               ))}

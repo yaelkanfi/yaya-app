@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../CartContext';
 import { FaArrowLeft } from 'react-icons/fa';
-import './ProductDetail.css';
+import styles from  './ProductDetail.module.css';
 
 function ProductDetail() {
     const { id } = useParams();
@@ -31,19 +31,19 @@ function ProductDetail() {
     if (!product) return <p>Loading...</p>;
 
     return (
-        <div className="product-detail">
+        <div className={styles['product-detail']}>
             {/* Back Button */}
-            <div className="back-icon" onClick={() => navigate(-1)}>
+            <div className={styles['back-icon']} onClick={() => navigate(-1)}>
                 <FaArrowLeft size={24} /> {/* Icon */}
             </div>
 
-            <img className="product-image" src={`http://localhost:5000${product.imageBase64}`} alt={product.name} />
-            <div className="product-info">
-                <h2 className="product-name">{product.name}</h2>
-                <p className="product-description">{product.description}</p>
-                <p className="product-price">${product.price}</p>
-                <button className="add-to-cart-button" onClick={handleAddToCart}>Add to Cart</button>
-                {confirmationMessage && <p className="confirmation-message">{confirmationMessage}</p>}
+            <img className={styles['product-image']} src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
+            <div className={styles['product-info']}>
+                <h2 className={styles['product-name']}>{product.name}</h2>
+                <p className={styles['product-description']}>{product.description}</p>
+                <p className={styles['product-price']}>${product.price}</p>
+                <button className={styles['add-to-cart-button']} onClick={handleAddToCart}>Add to Cart</button>
+                {confirmationMessage && <p className={styles['confirmation-message']}>{confirmationMessage}</p>}
             </div>
         </div>
     );

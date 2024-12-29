@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Products.css';
+import styles from './Products.module.css';
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -15,10 +15,10 @@ function Products() {
     return (
         <div>
             <h1>Products</h1>
-            <div className="product-list">
+            <div className={styles['product-list']}>
                 {products.map(product => (
-                    <Link to={`/products/${product._id}`} key={product._id} className="product-card">
-                        <img src={`http://localhost:5000${product.imageBase64}`} alt={product.name} />
+                    <Link to={`/products/${product._id}`} key={product._id} className={styles['product-card']}>
+                        <img src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
                         <h2>{product.name}</h2>
                         <p>{product.description}</p>
                         <p>${product.price}</p>
