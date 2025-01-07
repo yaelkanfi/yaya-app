@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { CartContext } from '../../CartContext';
 import styles from  './Cart.module.css';
+import productStyles from '../Products/ProductDetail'
 
 function Cart() {
     const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
@@ -23,9 +25,20 @@ function Cart() {
             ) : (
                 cart.map(product => (
                     <div key={product._id} className={styles['cart-item']}>
-                        <img src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
+                        <Link to={`/products/${product._id}`}>
+                            <img 
+                                className={productStyles['product-image']} 
+                                src={`http://localhost:5000${product.imagePath}`} 
+                                alt={product.name} 
+                            />
+                        </Link>
                         <div>
-                            <h3>{product.name}</h3>
+                            <Link 
+                                to={`/products/${product._id}`} 
+                                className={styles['product-name-link']}
+                                style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <h3>{product.name}</h3>
+                            </Link>
                             <p>Price: ${product.price}</p>
                             <div className={styles['quantity-control']}>
                                 <button onClick={() => handleDecrease(product._id, product.quantity)}>-</button>

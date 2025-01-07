@@ -71,7 +71,7 @@ function SubcategoryPage() {
             {/* Horizontal banner image */}
             <img src={bannerImage} alt="Home Banner" className={subcategoryStyles['home-banner']}/>
 
-            <div className={subcategoryStyles.controls}>
+            <div className={subcategoryStyles['controls']}>
                 {/* Sort Dropdown */}
                 <div className={subcategoryStyles['sort-container']}>
                     <button className={subcategoryStyles['sort-toggle']} onClick={toggleSort}>
@@ -88,18 +88,18 @@ function SubcategoryPage() {
                 </div>
 
                 {/* Filter Bar */}
-                <div className="filter-container">
-                    <button className="filter-toggle" onClick={toggleFilter} >
+                <div className={subcategoryStyles['filter-container']}>
+                    <button className={subcategoryStyles['filter-toggle']} onClick={toggleFilter} >
                         <FaFilter className='filter-icon' />
                         Filter
-                        <span className={`triangle ${filterOpen ? 'down' : ''}`}></span>
+                        <span className={`${subcategoryStyles.triangle} ${filterOpen ? 'down' : ''}`}></span>
                     </button>
                     {filterOpen && (
-                        <div className="filter-bar">
+                        <div className={subcategoryStyles['filter-bar']}>
                             {filterOptions.map((option, index) => (
                                 <div
                                     key={index}
-                                    className={`filter-option ${selectedFilters.includes(option) ? 'selected' : ''
+                                    className={`${subcategoryStyles['filter-option']} ${selectedFilters.includes(option) ? 'selected' : ''
                                         }`}
                                     onClick={() => handleFilterSelect(option)}
                                 >

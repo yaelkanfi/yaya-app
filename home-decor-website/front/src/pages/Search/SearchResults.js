@@ -28,8 +28,11 @@ const SearchResults = () => {
         {results.length > 0 ? (
           results.map((product) => (
             <Link to={`/products/${product._id}`} key={product._id} className={styles['product-card']}>
-              <img src={product.imageUrl} alt={product.name} />
-              <h3>{product.name}</h3>
+              <img src={`http://localhost:5000${product.imagePath}`}
+                alt={product.name}
+                style={{ maxWidth: '100%', maxHeight: '200px' }} // Ensure image fits 
+              />
+              <h2>{product.name}</h2>
               <p>{product.description}</p>
               <p>${product.price}</p>
             </Link>
