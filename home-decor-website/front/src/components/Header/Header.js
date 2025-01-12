@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
-import { CartContext } from '../../CartContext';
+import { CartContext } from '../../context/CartContext';
 import styles from './Header.module.css';
 
 const Header = () => {

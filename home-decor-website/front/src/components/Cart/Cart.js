@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '../../CartContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CartContext } from '../../context/CartContext';
 import styles from  './Cart.module.css';
-import productStyles from '../Products/ProductDetail'
 
 function Cart() {
-    const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
+    const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
 
     const handleIncrease = (productId, currentQuantity) => {
         updateQuantity(productId, currentQuantity + 1);
@@ -15,7 +16,12 @@ function Cart() {
         updateQuantity(productId, currentQuantity - 1);
     };
 
+    const checkout = () => {
+        
+    }
+
     const total = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    const count = cart.reduce((count, item) => count + item.quantity, 0);
 
     return (
         <div className={styles.cart}>
@@ -27,33 +33,38 @@ function Cart() {
                     <div key={product._id} className={styles['cart-item']}>
                         <Link to={`/products/${product._id}`}>
                             <img 
-                                className={productStyles['product-image']} 
                                 src={`http://localhost:5000${product.imagePath}`} 
                                 alt={product.name} 
                             />
                         </Link>
-                        <div>
-                            <Link 
-                                to={`/products/${product._id}`} 
-                                className={styles['product-name-link']}
+
+                        <div className={styles['name-quantity']}>
+                            <Link to={`/products/${product._id}`} 
                                 style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <h3>{product.name}</h3>
                             </Link>
-                            <p>Price: ${product.price}</p>
+
                             <div className={styles['quantity-control']}>
-                                <button onClick={() => handleDecrease(product._id, product.quantity)}>-</button>
+                                <button className={styles['quantity-button']} onClick={() => handleDecrease(product._id, product.quantity)}>-</button>
                                 <span>{product.quantity}</span>
-                                <button onClick={() => handleIncrease(product._id, product.quantity)}>+</button>
+                                <button className={styles['quantity-button']} onClick={() => handleIncrease(product._id, product.quantity)}>+</button>
                             </div>
-                            <div>
-                                <button onClick={() => removeFromCart(product._id)}>Remove</button>
-                            </div>
+
+                        </div>
+
+                        <div className={styles['price-remove']}>
+                            <p>${product.price}</p>
+                            <button className={styles['remove-button']} onClick={() => removeFromCart(product._id)}>
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
                         </div>
                     </div>
                 ))
             )}
-            <div><button onClick={() => clearCart()}>Clear Cart</button></div>
-            <h2>Total: ${total.toFixed(2)}</h2>
+            <div className={styles['clear-total']}>
+                <div className={styles['total']}><p>Subtotal({count} items): ${total.toFixed(2)}</p></div>
+            </div>
+            <button className={styles['checkout-button']} onClick={() => checkout()}>CHECKOUT</button>
         </div>
     );
 }
