@@ -53,7 +53,7 @@ function Home() {
                     <button className={styles['filter-toggle']} onClick={toggleFilter} >
                         <FaFilter className='filter-icon' />
                         Filter
-                        <span className={`${styles.triangle} ${filterOpen ? 'down' : ''}`}></span>
+                        <span className={`${styles.triangle} ${filterOpen ? styles.down : ''}`}></span>
                     </button>
                     {filterOpen && (
                         <div className={styles['filter-bar']}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FaFilter } from 'react-icons/fa';
+import { FiSliders } from 'react-icons/fi';
 import productsStyles from './Products.module.css';
 import subcategoryStyles from './SubcategoryPage.module.css';
 
@@ -12,7 +13,6 @@ import shelvesBanner from '../../assets/images/shelvesBanner.jpg';
 
 function SubcategoryPage() {
 
-    /* Banner mapping */
     const bannerImages = {
         /* furniture */
         Sofas: sofasBanner,
@@ -21,19 +21,41 @@ function SubcategoryPage() {
         Shelves: shelvesBanner,
     };
 
-    /* banner and filters */
+    const { category, subcategory } = useParams();
+    const [products, setProducts] = useState([]);
+
+    const bannerImage = bannerImages[subcategory];
+
     const [sortOpen, setSortOpen] = useState(false);
+    const [sortOption, setSortOption] = useState('');
     const [filterOpen, setFilterOpen] = useState(false);
     const [selectedFilters, setSelectedFilters] = useState([]);
 
     const toggleSort = () => setSortOpen(!sortOpen);
     const toggleFilter = () => setFilterOpen(!filterOpen);
 
+    const sortOptions = {
+        'Price: Low to High': (a, b) => a.price - b.price,
+        'Price: High to Low': (a, b) => b.price - a.price,
+        'Newest Arrivals': (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    };
+
+    const applySort = (option) => {
+        if (sortOptions[option]) {
+            const sortedProducts = [...products].sort(sortOptions[option]);
+            setProducts(sortedProducts);
+        }
+    };
+
+    const handleSort = (option) => {
+        setSortOption(option); 
+        applySort(option);     
+        setSortOpen(false);    
+    };
+
     const filterOptions = [
-        'In Stock',
-        'Color',
-        'Materail',
-        'Category',
+        'Availability',
+        'Product Type',
         'Price',
     ];
 
@@ -44,10 +66,6 @@ function SubcategoryPage() {
             setSelectedFilters([...selectedFilters, option]);
         }
     };
-
-    /* products */
-    const { category, subcategory } = useParams();
-    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/products/${category}/${subcategory}`)
@@ -62,44 +80,42 @@ function SubcategoryPage() {
             .catch(error => console.error('Error fetching products:', error));
     }, [category, subcategory]);
 
-    // Get the banner image based on the subcategory
-    const bannerImage = bannerImages[subcategory];
-
     return (
 
-        <div className={subcategoryStyles['home-container']}>
-            {/* Horizontal banner image */}
-            <img src={bannerImage} alt="Home Banner" className={subcategoryStyles['home-banner']}/>
+        <div className={subcategoryStyles['container']}>
+            <img src={bannerImage} alt="Subcategory Banner" className={subcategoryStyles['banner']} />
 
             <div className={subcategoryStyles['controls']}>
-                {/* Sort Dropdown */}
-                <div className={subcategoryStyles['sort-container']}>
-                    <button className={subcategoryStyles['sort-toggle']} onClick={toggleSort}>
-                        Sort
-                        <span className={`${subcategoryStyles.triangle} ${sortOpen ? 'down' : ''}`}></span>
+
+                <div className={subcategoryStyles['dropdown-container']}>
+                    <button className={subcategoryStyles['dropdown-button']} onClick={toggleSort}>
+                        <FiSliders className={subcategoryStyles['sort-icon']} />
+                        {sortOption || 'Sort'}
+                        <span className={`${subcategoryStyles.triangle} ${sortOpen ? subcategoryStyles.down : ''}`}></span>
                     </button>
                     {sortOpen && (
                         <div className={subcategoryStyles['sort-dropdown']}>
-                            <span>Price: Low to High</span>
-                            <span>Price: High to Low</span>
-                            <span>Newest Arrivals</span>
+                            {Object.keys(sortOptions).map((option) => (
+                                <span key={option} onClick={() => handleSort(option)}>
+                                    {option}
+                                </span>
+                            ))}
                         </div>
                     )}
                 </div>
 
-                {/* Filter Bar */}
-                <div className={subcategoryStyles['filter-container']}>
-                    <button className={subcategoryStyles['filter-toggle']} onClick={toggleFilter} >
-                        <FaFilter className='filter-icon' />
+                <div className={subcategoryStyles['dropdown-container']}>
+                    <button className={subcategoryStyles['dropdown-button']} onClick={toggleFilter} >
+                        <FaFilter className={subcategoryStyles['filter-icon']} />
                         Filter
-                        <span className={`${subcategoryStyles.triangle} ${filterOpen ? 'down' : ''}`}></span>
+                        <span className={`${subcategoryStyles.triangle} ${filterOpen ? subcategoryStyles.down : ''}`}></span>
                     </button>
                     {filterOpen && (
                         <div className={subcategoryStyles['filter-bar']}>
                             {filterOptions.map((option, index) => (
                                 <div
                                     key={index}
-                                    className={`${subcategoryStyles['filter-option']} ${selectedFilters.includes(option) ? 'selected' : ''
+                                    className={`${subcategoryStyles['filter-option']} ${selectedFilters.includes(option) ? subcategoryStyles.selected : ''
                                         }`}
                                     onClick={() => handleFilterSelect(option)}
                                 >
@@ -116,7 +132,7 @@ function SubcategoryPage() {
                         <Link to={`/products/${product._id}`} key={product._id} className={productsStyles['product-card']}>
                             <img src={`http://localhost:5000${product.imagePath}`}
                                 alt={product.name}
-                                style={{ maxWidth: '100%', maxHeight: '200px' }} // Ensure image fits 
+                                style={{ maxWidth: '100%', maxHeight: '200px' }}
                             />
                             <h2>{product.name}</h2>
                             <p>{product.description}</p>

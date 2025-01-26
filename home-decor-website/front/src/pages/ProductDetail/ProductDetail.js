@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../context/CartContext';
 import { FaArrowLeft } from 'react-icons/fa';
 import CartModal from '../../components/CartModal/CartModal';
-import styles from  './ProductDetail.module.css';
+import styles from './ProductDetail.module.css';
 
 function ProductDetail() {
     const { id } = useParams();
@@ -23,6 +23,11 @@ function ProductDetail() {
     const handleAddToCart = () => {
         addToCart(product, quantity);
         setIsModalVisible(true);
+
+        // Automatically close modal after a few seconds
+        setTimeout(() => {
+            setIsModalVisible(false);
+        }, 3000); // 3 seconds
     };
 
     const increaseQuantity = () => setQuantity(prev => prev + 1);
@@ -31,27 +36,29 @@ function ProductDetail() {
     if (!product) return <p>Loading...</p>;
 
     return (
-        <div className={styles['product-detail']}>
+        <div>
             <div className={styles['back-icon']} onClick={() => navigate(-1)}>
-                <FaArrowLeft size={24} /> 
+                <FaArrowLeft size={24} />
             </div>
 
-            <img className={styles['product-image']} src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
-            <div className={styles['product-info']}>
-                <p className={styles['product-description']}>{product.description}</p>
-                <p className={styles['product-price']}>${product.price}</p>
+            <div className={styles['product-detail']}>
+                <img className={styles['product-image']} src={`http://localhost:5000${product.imagePath}`} alt={product.name} />
+                <div className={styles['product-info']}>
+                    <p className={styles['product-description']}>{product.description}</p>
+                    <p className={styles['product-price']}>${product.price}</p>
 
-                <p className={styles['quantity-name']}>Quantity</p>
-                <div className={styles['quantity-picker']}>
-                    <button className={styles['quantity-button']} onClick={decreaseQuantity}>-</button>
-                    <span className={styles['quantity-display']}>{quantity}</span>
-                    <button className={styles['quantity-button']} onClick={increaseQuantity}>+</button>
+                    <p className={styles['quantity-name']}>Quantity</p>
+                    <div className={styles['quantity-picker']}>
+                        <button className={styles['quantity-button']} onClick={decreaseQuantity}>-</button>
+                        <span className={styles['quantity-display']}>{quantity}</span>
+                        <button className={styles['quantity-button']} onClick={increaseQuantity}>+</button>
+                    </div>
+
+                    <button className={styles['add-to-cart-button']} onClick={handleAddToCart}>ADD TO CART</button>
                 </div>
-                
-                <button className={styles['add-to-cart-button']} onClick={handleAddToCart}>ADD TO CART</button>
-            </div>
 
-            {isModalVisible && <CartModal cart={cart} onClose={() => setIsModalVisible(false)} />}
+                {isModalVisible && <CartModal cart={cart} onClose={() => setIsModalVisible(false)} />}
+            </div>
         </div>
     );
 }

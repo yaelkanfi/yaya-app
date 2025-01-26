@@ -1,7 +1,7 @@
 .product-detail {
     display: flex;
     flex-direction: row; 
-    justify-content: center;
+    justify-content: left;
     align-items: flex-start;
     max-width: 1000px;
     margin: 20px auto;
@@ -10,7 +10,7 @@
 }
 
 .back-icon {
-    position: absolute;
+    position: relative;
     top: 20px;
     margin-right: 1500px;
     cursor: pointer;

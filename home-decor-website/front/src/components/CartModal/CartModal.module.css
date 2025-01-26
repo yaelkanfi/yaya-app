@@ -23,19 +23,6 @@
     border-radius: 40px;
 }
 
-.cartItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.cartItem img {
-    width: 60px;
-    height: 60px;
-    margin-right: 10px;
-    border-radius: 4px;
-}
-
 .closeButton {
     position: absolute;
     top: 10px;
@@ -46,9 +33,3 @@
     cursor: pointer;
 }
 
-.total {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 1.2em;
-    text-align: right;
-}

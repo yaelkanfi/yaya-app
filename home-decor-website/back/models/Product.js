@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   imagePath: String,
   category: String,
   subcategory: String,
+  //date - for sort
 });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -17,7 +17,7 @@ function Cart() {
     };
 
     const checkout = () => {
-        
+        {/* to implement */}
     }
 
     const total = cart.reduce((total, item) => total + item.price * item.quantity, 0);
