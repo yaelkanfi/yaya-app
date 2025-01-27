@@ -8,6 +8,7 @@ import SubcategoryPage from './pages/Products/SubcategoryPage';
 import SearchResults from './pages/Search/SearchResults';
 import { CartProvider } from './context/CartContext';
 import Cart from './components/Cart/Cart'
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 function App() {
     return (

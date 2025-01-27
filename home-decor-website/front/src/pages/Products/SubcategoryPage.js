@@ -56,19 +56,22 @@ function SubcategoryPage() {
     /* Filter */
 
     const [filterOpen, setFilterOpen] = useState(false);
-    const [selectedFilterCategory, setSelectedFilterCategory] = useState(null);
     const [filterOptionsOpen, setFilterOptionsOpen] = useState(false);
+    const [selectedFilterCategory, setSelectedFilterCategory] = useState(null);
     const [filterOption, setFilterOption] = useState('');
+
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+
 
     const toggleFilter = () => {
         setFilterOpen(!filterOpen);
-        setSelectedFilterCategory(null);
         setFilterOptionsOpen(false);
+        setSelectedFilterCategory(null);
     };
 
     const filterCategories = {
         Availability: ["In Stock", "Out of Stock"],
-        "Product Type": ["Sofas", "Tables", "Chairs", "Shelves"],
         Price: ["Under $100", "$100-$500", "Above $500"],
     };
 
@@ -76,12 +79,8 @@ function SubcategoryPage() {
         Availability: (product, value) => {
             return value === "In Stock" ? product.stock > 0 : product.stock === 0;
         },
-        "Product Type": (product, value) => product.subcategory === value,
         Price: (product, value) => {
-            if (value === "Under $100") return product.price < 100;
-            if (value === "$100-$500") return product.price >= 100 && product.price <= 500;
-            if (value === "Above $500") return product.price > 500;
-            return true;
+            return product.price >= minPrice && product.price <= maxPrice;
         },
     };
 
@@ -92,8 +91,6 @@ function SubcategoryPage() {
 
     const applyFilter = (option) => {
         setFilterOption({ category: selectedFilterCategory, value: option });
-        setFilterOptionsOpen(false);
-        setFilterOpen(false);
 
         const filterFunc = filterOptions[selectedFilterCategory];
         if (filterFunc) {
@@ -102,63 +99,111 @@ function SubcategoryPage() {
         }
     };
 
-        useEffect(() => {
-            fetch(`http://localhost:5000/api/products/${category}/${subcategory}`)
-                .then(response => response.json())
-                .then((data) => {
-                    if (Array.isArray(data)) {
-                        setBaseProducts(data);
-                        setProducts(data); // Ensure data is an array
-                    } else {
-                        setBaseProducts([]);
-                        setProducts([]); // Default to an empty array if data is invalid
-                    }
-                })
-                .catch(error => console.error('Error fetching products:', error));
-        }, [category, subcategory]);
+    useEffect(() => {
+        fetch(`http://localhost:5000/api/products/${category}/${subcategory}`)
+            .then(response => response.json())
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    setBaseProducts(data);
+                    setProducts(data); // Ensure data is an array
+                } else {
+                    setBaseProducts([]);
+                    setProducts([]); // Default to an empty array if data is invalid
+                }
+            })
+            .catch(error => console.error('Error fetching products:', error));
+    }, [category, subcategory]);
 
-        return (
+    return (
 
-            <div className={subcategoryStyles['container']}>
-                <img src={bannerImage} alt="Subcategory Banner" className={subcategoryStyles['banner']} />
+        <div className={subcategoryStyles['container']}>
+            <img src={bannerImage} alt="Subcategory Banner" className={subcategoryStyles['banner']} />
 
-                <div className={subcategoryStyles['controls']}>
+            <div className={subcategoryStyles['controls']}>
 
-                    <div className={subcategoryStyles['dropdown-container']}>
-                        <button className={subcategoryStyles['dropdown-button']} onClick={toggleSort}>
-                            <FiSliders className={subcategoryStyles['sort-icon']} />
-                            {sortOption || 'Sort'}
-                            <span className={`${subcategoryStyles.triangle} ${sortOpen ? subcategoryStyles.down : ''}`}></span>
-                        </button>
-                        {sortOpen && (
-                            <div className={subcategoryStyles['sort-dropdown']}>
-                                {Object.keys(sortOptions).map((option) => (
-                                    <span key={option} onClick={() => handleSort(option)}>
-                                        {option}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                <div className={subcategoryStyles['dropdown-container']}>
+                    <button className={subcategoryStyles['dropdown-button']} onClick={toggleSort}>
+                        <FiSliders className={subcategoryStyles['sort-icon']} />
+                        {sortOption || 'Sort'}
+                        <span className={`${subcategoryStyles.triangle} ${sortOpen ? subcategoryStyles.down : ''}`}></span>
+                    </button>
+                    {sortOpen && (
+                        <div className={subcategoryStyles['sort-dropdown']}>
+                            {Object.keys(sortOptions).map((option) => (
+                                <span key={option} onClick={() => handleSort(option)}>
+                                    {option}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
 
-                    <div className={subcategoryStyles['dropdown-container']}>
-                        <button className={subcategoryStyles['dropdown-button']} onClick={toggleFilter} >
-                            <FaFilter className={subcategoryStyles['filter-icon']} />
-                            Filter
-                            <span className={`${subcategoryStyles.triangle} ${filterOpen ? subcategoryStyles.down : ''}`}></span>
-                        </button>
-                        {filterOpen && (
-                            <div className={subcategoryStyles["filter-bar"]}>
-                                {!selectedFilterCategory ? (
-                                    Object.keys(filterCategories).map((category) => (
-                                        <div
-                                            key={category}
-                                            className={subcategoryStyles["filter-option"]}
-                                            onClick={() => handleFilterCategorySelect(category)}
-                                        >
-                                            {category}
+                <div className={subcategoryStyles['dropdown-container']}>
+                    <button className={subcategoryStyles['dropdown-button']} onClick={toggleFilter} >
+                        <FaFilter className={subcategoryStyles['filter-icon']} />
+                        Filter
+                        <span className={`${subcategoryStyles.triangle} ${filterOpen ? subcategoryStyles.down : ''}`}></span>
+                    </button>
+                    {filterOpen && (
+                        <div className={subcategoryStyles["filter-bar"]}>
+                            {!selectedFilterCategory ? (
+                                Object.keys(filterCategories).map((category) => (
+                                    <div
+                                        key={category}
+                                        className={subcategoryStyles["filter-option"]}
+                                        onClick={() => handleFilterCategorySelect(category)}
+                                    >
+                                        {category}
+                                    </div>
+                                ))
+                            ) : (
+                                selectedFilterCategory === "Price" ? (
+                                    <div className={subcategoryStyles["price-filter"]}>
+                                        <label>
+                                            Min Price:
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max="1000"
+                                                value={minPrice}
+                                                onChange={(e) => setMinPrice(e.target.value)}
+                                                className={subcategoryStyles['range-slider']}
+                                            />
+                                            <span className={subcategoryStyles['range-tooltip']}>${minPrice}</span>
+                                        </label>
+
+                                        <label>
+                                            Max Price:
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max="1000"
+                                                value={maxPrice}
+                                                onChange={(e) => setMaxPrice(e.target.value)}
+                                                className={subcategoryStyles['range-slider']}
+                                            />
+                                            <span className={subcategoryStyles['range-tooltip']}>${maxPrice}</span>
+                                        </label>
+
+                                        <div className={subcategoryStyles['filter-buttons']}>
+                                            <button
+                                                className={subcategoryStyles['apply-button']}
+                                                onClick={() => applyFilter('')}
+                                            >
+                                                Apply
+                                            </button>
+                                            <button
+                                                className={subcategoryStyles['reset-button']}
+                                                onClick={() => {
+                                                    setMinPrice(0);
+                                                    setMaxPrice(1000);
+                                                    applyFilter('');
+                                                }}
+                                            >
+                                                Reset
+                                            </button>
                                         </div>
-                                    ))
+                                    </div>
                                 ) : (
                                     filterCategories[selectedFilterCategory].map((option) => (
                                         <div
@@ -169,28 +214,41 @@ function SubcategoryPage() {
                                             {option}
                                         </div>
                                     ))
-                                )}
-                            </div>
-                        )}
-                    </div>
+                                )
+                            )}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <div className={productsStyles['product-list']}>
-                        {products.map(product => (
-                            <Link to={`/products/${product._id}`} key={product._id} className={productsStyles['product-card']}>
-                                <img src={`http://localhost:5000${product.imagePath}`}
-                                    alt={product.name}
-                                    style={{ maxWidth: '100%', maxHeight: '200px' }}
-                                />
-                                <h2>{product.name}</h2>
-                                <p>{product.description}</p>
-                                <p>${product.price}</p>
-                            </Link>
-                        ))}
-                    </div>
+            </div>
+            <div>
+                <div className={productsStyles['product-list']}>
+                    {products.map(product => (
+                        <Link to={`/products/${product._id}`} key={product._id} className={productsStyles['product-card']}>
+                            <img src={`http://localhost:5000${product.imagePath}`}
+                                alt={product.name}
+                                style={{ maxWidth: '100%', maxHeight: '200px' }}
+                            />
+                            <h2>{product.name}</h2>
+                            <p>{product.description}</p>
+                            <p>${product.price}</p>
+                        </Link>
+                    ))}
                 </div>
-            </div >
-        );
-    }
+            </div>
+        </div >
+    );
+}
 
-    export default SubcategoryPage;
+export default SubcategoryPage;
+
+/*
+filterCategories[selectedFilterCategory].map((option) => (
+                                    <div
+                                        key={option}
+                                        className={subcategoryStyles["filter-option"]}
+                                        onClick={() => applyFilter(option)}
+                                    >
+                                        {option}
+                                    </div>
+                                ))
+*/

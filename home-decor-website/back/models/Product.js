@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   category: String,
   subcategory: String,
   //date - for sort
+  //stock - for availability filter
 });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -127,3 +127,99 @@
     background-color: #333;
     color: #fff;
 }
+
+.price-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+}
+
+/* Styling the range sliders */
+.range-slider {
+    width: 100%;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  .range-slider::-webkit-slider-runnable-track {
+    background-color: #ddd;
+    height: 8px;
+    border-radius: 5px;
+  }
+  
+  .range-slider::-webkit-slider-thumb {
+    background-color: #4a90e2;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .range-slider:hover::-webkit-slider-thumb {
+    background-color: #357abd;
+  }
+  
+  .range-tooltip {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a90e2;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .range-slider:active + .range-tooltip,
+  .range-slider:hover + .range-tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Styling the buttons */
+  .apply-button, .reset-button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .apply-button:hover {
+    background-color: #357abd;
+  }
+  
+  .reset-button {
+    background-color: #f3f4f6;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+  }
+  
+  .reset-button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Button group */
+  .filter-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+  }
+  
+  /* Extra fine-tuning */
+  .price-filter {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
