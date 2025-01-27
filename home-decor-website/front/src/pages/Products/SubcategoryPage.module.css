@@ -182,7 +182,6 @@
     opacity: 1;
   }
   
-  /* Styling the buttons */
   .apply-button, .reset-button {
     background-color: #4a90e2;
     color: white;
@@ -209,14 +208,12 @@
     background-color: #ddd;
   }
   
-  /* Button group */
   .filter-buttons {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
   }
   
-  /* Extra fine-tuning */
   .price-filter {
     position: relative;
     margin-bottom: 20px;

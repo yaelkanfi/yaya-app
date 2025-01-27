@@ -37,7 +37,7 @@ function SubcategoryPage() {
     const sortOptions = {
         'Price: Low to High': (a, b) => a.price - b.price,
         'Price: High to Low': (a, b) => b.price - a.price,
-        'Newest Arrivals': (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        'Newest Arrivals': (a, b) => new Date(b.date) - new Date(a.date),
     };
 
     const applySort = (option) => {
@@ -72,7 +72,7 @@ function SubcategoryPage() {
 
     const filterCategories = {
         Availability: ["In Stock", "Out of Stock"],
-        Price: ["Under $100", "$100-$500", "Above $500"],
+        Price: [],
     };
 
     const filterOptions = {
@@ -90,7 +90,7 @@ function SubcategoryPage() {
     };
 
     const applyFilter = (option) => {
-        setFilterOption({ category: selectedFilterCategory, value: option });
+        setFilterOption(option);
 
         const filterFunc = filterOptions[selectedFilterCategory];
         if (filterFunc) {
@@ -208,7 +208,7 @@ function SubcategoryPage() {
                                     filterCategories[selectedFilterCategory].map((option) => (
                                         <div
                                             key={option}
-                                            className={subcategoryStyles["filter-option"]}
+                                            className={`${subcategoryStyles['filter-option']} ${filterOption === option? subcategoryStyles.selected : ''}`}
                                             onClick={() => applyFilter(option)}
                                         >
                                             {option}
@@ -240,15 +240,3 @@ function SubcategoryPage() {
 }
 
 export default SubcategoryPage;
-
-/*
-filterCategories[selectedFilterCategory].map((option) => (
-                                    <div
-                                        key={option}
-                                        className={subcategoryStyles["filter-option"]}
-                                        onClick={() => applyFilter(option)}
-                                    >
-                                        {option}
-                                    </div>
-                                ))
-*/
