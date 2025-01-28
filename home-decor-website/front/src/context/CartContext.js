@@ -30,7 +30,7 @@ export const CartProvider = ({ children }) => {
             ));
         } else {
             // If item doesn't exist, add a new one
-            setCart([...cart, { _id: product._id, name: product.name, price: product.price, imagePath: product.imagePath, quantity }]);
+            setCart([...cart, { _id: product._id, name: product.name, price: product.price, imagePath: product.imagePath, quantity , stock: product.stock}]);
         }
     };
 
@@ -50,7 +50,7 @@ export const CartProvider = ({ children }) => {
     const clearCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{ cart, getCartCount, addToCart, removeFromCart, updateQuantity, clearCart}}>
+        <CartContext.Provider value={{ cart, setCart, getCartCount, addToCart, removeFromCart, updateQuantity, clearCart}}>
             {children}
         </CartContext.Provider>
     );

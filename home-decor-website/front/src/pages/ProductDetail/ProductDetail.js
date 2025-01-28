@@ -54,7 +54,24 @@ function ProductDetail() {
                         <button className={styles['quantity-button']} onClick={increaseQuantity}>+</button>
                     </div>
 
-                    <button className={styles['add-to-cart-button']} onClick={handleAddToCart}>ADD TO CART</button>
+                    {product.stock > 0 ? (
+                        <>
+                            <button 
+                                className={styles['add-to-cart-button']} 
+                                onClick={handleAddToCart}
+                            >
+                                ADD TO CART
+                            </button>
+                        </>
+                    ) : (
+                        <button 
+                            className={styles['add-to-cart-button']} 
+                            disabled 
+                            style={{ backgroundColor: '#ccc', cursor: 'not-allowed' }}
+                        >
+                            Out of Stock
+                        </button>
+                    )}
                 </div>
 
                 {isModalVisible && <CartModal cart={cart} onClose={() => setIsModalVisible(false)} />}

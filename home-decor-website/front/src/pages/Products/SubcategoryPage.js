@@ -208,7 +208,7 @@ function SubcategoryPage() {
                                     filterCategories[selectedFilterCategory].map((option) => (
                                         <div
                                             key={option}
-                                            className={`${subcategoryStyles['filter-option']} ${filterOption === option? subcategoryStyles.selected : ''}`}
+                                            className={`${subcategoryStyles['filter-option']} ${filterOption === option ? subcategoryStyles.selected : ''}`}
                                             onClick={() => applyFilter(option)}
                                         >
                                             {option}
@@ -224,11 +224,18 @@ function SubcategoryPage() {
                 <div className={productsStyles['product-list']}>
                     {products.map(product => (
                         <Link to={`/products/${product._id}`} key={product._id} className={productsStyles['product-card']}>
-                            <img src={`http://localhost:5000${product.imagePath}`}
-                                alt={product.name}
-                                style={{ maxWidth: '100%', maxHeight: '200px' }}
-                            />
-                            <h2>{product.name}</h2>
+                            <div className={productsStyles['image-container']}>
+                                <img
+                                    src={`http://localhost:5000${product.imagePath}`}
+                                    alt={product.name}
+                                    className={productsStyles['product-image']}
+                                />
+                                {product.stock === 0 && (
+                                    <div className={productsStyles['out-of-stock-overlay']}>
+                                        <span className={productsStyles['out-of-stock-text']}>Out of Stock</span>
+                                    </div>
+                                )}
+                            </div>
                             <p>{product.description}</p>
                             <p>${product.price}</p>
                         </Link>
