@@ -13,10 +13,10 @@ async function updateExistingProducts() {
   try {
     // Update all products with default stock and arrivalDate if not already set
     const result = await Product.updateMany(
-      { imagePath: "/home/yael/web/home-decor-website/back/uploads/images/SolidWoodTable.jpeg"}, // Match documents without these fields
+      { imagePath: "/uploads/images/SolidWoodTable.jpeg"}, // Match documents without these fields
       {
         $set: {
-          imagePath: "/uploads/images/SolidWoodTable.jpeg", // Default stock value
+          imagePath: "/uploads/images/Solid Wood Table.jpeg", // Default stock value
         },
       }
     );

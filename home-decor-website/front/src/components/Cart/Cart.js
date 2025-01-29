@@ -13,24 +13,36 @@ function Cart() {
     useEffect(() => {
         const fetchUpdatedCart = async () => {
             try {
+                if (cart.length === 0) {
+                    setIsLoading(false);
+                    return;
+                }
+    
                 const updatedCart = await Promise.all(
                     cart.map(async (item) => {
                         const response = await fetch(`http://localhost:5000/api/products/${item._id}`);
                         const updatedProduct = await response.json();
-                        return { ...item, stock: updatedProduct.stock };
+                        return { ...item, imagePath: updatedProduct.imagePath, stock: updatedProduct.stock };
                     })
                 );
-                setCart(updatedCart);
+    
+                setCart(prevCart => {
+                    if (JSON.stringify(prevCart) === JSON.stringify(updatedCart)) {
+                        return prevCart; 
+                    }
+                    return updatedCart;
+                });
+    
                 setHasOutOfStock(updatedCart.some(product => product.stock === 0));
-                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching updated cart products:', error);
+            } finally {
                 setIsLoading(false);
             }
         };
-
+    
         fetchUpdatedCart();
-    }, [cart, setCart]);
+    }, []);
 
     const handleIncrease = (productId, currentQuantity) => {
         updateQuantity(productId, currentQuantity + 1);
