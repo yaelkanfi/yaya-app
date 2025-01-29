@@ -17,12 +17,12 @@ const getProductById = async (id) => {
 
 // Search for products
 const searchProducts = async (query) => {
-    const regex = new RegExp(`\\b${query}\\b`, 'i');
+
     return await Product.find({
         $or: [
-            { name: regex },
-            { description: regex },
-            { subcategory: regex }
+            { name: { $regex: query, $options: 'i' } },
+            { description: { $regex: query, $options: 'i' } },
+            { subcategory: { $regex: query, $options: 'i' } }
         ]
     });
 };

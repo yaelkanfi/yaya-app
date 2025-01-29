@@ -28,11 +28,18 @@ const SearchResults = () => {
         {results.length > 0 ? (
           results.map((product) => (
             <Link to={`/products/${product._id}`} key={product._id} className={styles['product-card']}>
-              <img src={`http://localhost:5000${product.imagePath}`}
-                alt={product.name}
-                style={{ maxWidth: '100%', maxHeight: '200px' }} // Ensure image fits 
-              />
-              <h2>{product.name}</h2>
+              <div className={styles['image-container']}>
+                <img
+                  src={`http://localhost:5000${product.imagePath}`}
+                  alt={product.name}
+                  className={styles['product-image']}
+                />
+                {product.stock === 0 && (
+                  <div className={styles['out-of-stock-overlay']}>
+                    <span className={styles['out-of-stock-text']}>Out of Stock</span>
+                  </div>
+                )}
+              </div>
               <p>{product.description}</p>
               <p>${product.price}</p>
             </Link>

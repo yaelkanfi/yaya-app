@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaSearch } from 'react-icons/fa';
+import { FaShoppingBag, FaSearch, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { CartContext } from '../../context/CartContext';
 import styles from './Header.module.css';
 
@@ -10,9 +10,11 @@ const Header = () => {
   const cartCount = getCartCount();
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const [openCategory, setOpenCategory] = useState(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
+
     if (searchQuery.trim()) {
       navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
       setSearchQuery('');
@@ -28,6 +30,7 @@ const Header = () => {
   ];
 
   return (
+
     <header className={styles.header}>
       <div className={styles['header-top']}>
         <Link to="/" className={`${styles['header-title']} ${styles['no-link-style']}`}>KBN</Link>
@@ -41,23 +44,44 @@ const Header = () => {
 
         {/* Cart Icon */}
         <Link to="/cart" className={styles['cart-icon-container']}>
-          <FaShoppingCart className={styles['cart-icon']} size={24} />
+          <FaShoppingBag size={24} />
           {cartCount > 0 && <span className={styles['cart-count']}>{cartCount}</span>}
         </Link>
       </div>
 
       {/* Categories */}
       <nav className={styles['category-nav']}>
-        {categories.map((category, index) => (
-          <div key={index} className={styles['category-item']}>
-            <span className={styles['category-name']}>{category.name}</span>
-            <div className={styles['subcategory-dropdown']}>
-              {category.subcategories.map((sub, idx) => (
-                <Link key={idx} to={`/products/${category.name}/${sub}`}>{sub}</Link>
-              ))}
+        {categories.map((category, index) => {
+          const isOpen = openCategory === category.name;
+
+          return (
+            <div
+              key={index}
+              className={styles['category-item']}
+              onMouseEnter={() => setOpenCategory(category.name)}
+              onMouseLeave={() => setOpenCategory(null)}
+            >
+              <span className={styles['category-name']}>
+                {category.name}
+                {isOpen ? (
+                  <FaChevronUp className={styles['chevron-icon']} />
+                ) : (
+                  <FaChevronDown className={styles['chevron-icon']} />
+                )}
+              </span>
+
+              {isOpen && (
+                <div className={styles['subcategory-dropdown']}>
+                  {category.subcategories.map((sub, idx) => (
+                    <Link key={idx} to={`/products/${category.name}/${sub}`} className={styles['subcategory-item']}>
+                      {sub}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </nav>
 
     </header>
